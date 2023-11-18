@@ -1,10 +1,9 @@
 package com.my.experiment.demo04;
 
-
 import java.util.Arrays;
 import java.util.Scanner;
 
-public class rr {
+public class Dijkstra {
     private static final int MAXN = 1000;  // 最大顶点数
     private static final int INF = 100;    // 表示无穷大的距离
 
@@ -14,23 +13,26 @@ public class rr {
     private static int[] dist = new int[MAXN];  // 起始顶点到各顶点的最短距离
     private static boolean[] vis = new boolean[MAXN];  // 标记顶点是否已访问
 
-    // Dijkstra算法，计算从start出发的最短路径
     private static void dijkstra(int start) {
-        Arrays.fill(dist, INF);  // 初始化距离数组为无穷大
-        Arrays.fill(vis, false);  // 初始化访问标记数组为false
 
-        dist[start] = 0;  // 起始顶点到自身的距离为0
-        vis[start] = true;  // 标记起始顶点已访问
+        //初始化 标记起点
+        Arrays.fill(dist, INF);
+        Arrays.fill(vis, false);
 
+        dist[start] = 0;
+        vis[start] = true;
+
+        //  更新起始顶点到其他顶点的距离
         for (int v = 1; v <= n; v++) {
             if (!vis[v]) {
-                dist[v] = Math.min(dist[v], dist[start] + graph[start][v]);  // 更新起始顶点到其他顶点的距离
+                dist[v] = Math.min(dist[v], dist[start] + graph[start][v]);
             }
         }
 
+        //输出与起点的距离
         for (int i = 1; i <= n; i++) {
             if (dist[i] == INF) {
-                System.out.println("INF");  // 输出起始顶点到各顶点的最短距离
+                System.out.println("INF");
             } else {
                 System.out.println(dist[i]);
             }
@@ -38,10 +40,11 @@ public class rr {
 
         System.out.println("下面是解");
 
+
         for (int i = 1; i < n; i++) {
             int minDist = INF;
             int u = -1;
-
+             //在没被标记的点里面找出值最小的那个
             for (int j = 1; j <= n; j++) {
                 if (!vis[j] && dist[j] < minDist) {
                     u = j;
@@ -49,11 +52,13 @@ public class rr {
                 }
             }
 
-            vis[u] = true;  // 标记顶点u已访问
+            //把那个最小点标记
+            vis[u] = true;
 
+            //更新起始顶点到其他未访问顶点的最短距离
             for (int v = 1; v <= n; v++) {
                 if (!vis[v]) {
-                    dist[v] = Math.min(dist[v], dist[u] + graph[u][v]);  // 更新起始顶点到其他未访问顶点的最短距离
+                    dist[v] = Math.min(dist[v], dist[u] + graph[u][v]);
                 }
             }
         }
@@ -62,18 +67,17 @@ public class rr {
     public static void main(String[] args) {
         Scanner scanner = new Scanner(System.in);
 
-        n = 6;  // 顶点数
-        m = 10;  // 边数
+        n = 6;
+        m = 10;
 
-        graph = new int[MAXN][MAXN];  // 初始化图的邻接矩阵
-        dist = new int[MAXN];  // 初始化最短距离数组
-        vis = new boolean[MAXN];  // 初始化访问标记数组
+        graph = new int[MAXN][MAXN];
+        dist = new int[MAXN];
+        vis = new boolean[MAXN];
 
         for (int i = 1; i <= n; i++) {
-            Arrays.fill(graph[i], INF);  // 初始化邻接矩阵，将所有边的权值设为无穷大
+            Arrays.fill(graph[i], INF);
         }
 
-        // 初始化图的边权值
         graph[1][2] = 10;
         graph[1][6] = 3;
         graph[2][3] = 7;
@@ -85,13 +89,12 @@ public class rr {
         graph[6][4] = 6;
         graph[6][5] = 1;
 
-        int start = scanner.nextInt();  // 输入起始顶点
+        int start = scanner.nextInt();
 
-        dijkstra(start);  // 使用Dijkstra算法计算最短路径
-
+        dijkstra(start);
         for (int i = 1; i <= n; i++) {
             if (dist[i] == INF) {
-                System.out.println("INF");  // 输出起始顶点到各顶点的最短距离
+                System.out.println("INF");
             } else {
                 System.out.println(dist[i]);
             }
@@ -99,5 +102,4 @@ public class rr {
 
         scanner.close();
     }
-
 }
