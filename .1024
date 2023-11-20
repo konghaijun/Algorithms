@@ -1,0 +1,12 @@
+run_command: java -cp target/classes com.my.practice.hello
+debug:
+  compile: javac -encoding utf-8 -g -cp . Main.java
+  launch:
+    mainClass: Main
+    classPaths:
+      - .
+    cwd: .
+    console: integratedTerminal
+    internalConsoleOptions: neverOpen
+  support: true
+compile_command: javac -d target/classes src/main/java/com/my/practice/hello.java
