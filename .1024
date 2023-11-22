@@ -1,8 +1,8 @@
 run_command: java -cp target/classes com.my.practice.hello
 debug:
-  compile: javac -encoding utf-8 -g -cp . Main.java
+  compile: javac -encoding utf-8 -g -cp . hello.java
   launch:
-    mainClass: Main
+    mainClass: hello
     classPaths:
       - .
     cwd: .
