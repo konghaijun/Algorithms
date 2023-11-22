@@ -1,51 +1,79 @@
 package com.my.practice;
- public class hello {
+
+
+public class hello {
 
   public static void main(String[] args) {
-int[] nums=new int[]{3,2,2,3,3};
-    int val=3;
-    System.out.print(removeElement(nums,val));
-
+int[] nums=new int[]{2,3,1,2,4,3};
+    //int val=3;
+    //System.out.print(removeElement(nums,val));
+ // System.out.print(maxSubArray(nums));
+  System.out.print(minSubArrayLen(7,nums));
   }
 
 
+public static int minSubArrayLen(int target, int[] nums) {
 
-
-     /**
-      * 1.dp[i]代表当前下标对应的最大值
-      * 2.递推公式 dp[i] = max (dp[i-1]+nums[i],nums[i]) res = max(res,dp[i])
-      * 3.初始化 都为 0
-      * 4.遍历方向，从前往后
-      * 5.举例推导结果。。。
-      */
-
-     /*
-     问题理解：最大子数组和问题是一个经典的算法问题，要求在一个给定的整数数组中找到一个连续的子数组，使得子数组元素之和最大。这个问题的目标是找到最大的子数组和，并返回这个和值。
-
-     问题分析：在动态规划中，我们通常会定义一个状态数组来存储中间状态，然后通过状态转移方程来更新状态数组，最终得到问题的解。
-     对于最大子数组和问题，我们可以定义一个状态数组 dp[i]，表示以第 i 个元素结尾的子数组的最大和。然后我们需要找到 dp[i] 和 dp[i-1] 的关系，以及初始状态下 dp[0] 的取值。
-
-     数学建模：数学建模阶段主要涉及状态的定义和状态转移方程的建立。
-     对于最大子数组和问题，可以将状态 dp[i] 定义为以第 i 个元素结尾的子数组的最大和，
-     状态转移方程可以定义为：dp[i] = max(nums[i], dp[i-1] + nums[i])，其中 nums[i] 表示第 i 个元素的值。初始状态下，可以将 dp[0] 的值设为 nums[0]。
-
-     */
-     public  int maxSubArray(int[] nums) {
-         if (nums.length == 0) {
-             return 0;
-         }
-         int res = nums[0];
-         int[] dp = new int[nums.length];
-         dp[0] = nums[0];
-         for (int i = 1; i < nums.length; i++) {
-             dp[i] = Math.max(dp[i - 1] + nums[i], nums[i]);
-             res=Math.max(res,dp[i]);
-         }
-         return res;
-     }
+  int left=0;
+  int right=0;
+  int result=Integer.MAX_VALUE;
+  int sum=nums[0];
+  //int start=-1;
+  for(int i=1;i<nums.length;i++){
+    if(sum<target){
+      right++;
+      sum=sum+nums[right];
+    }else {
+      result=Math.min(result,right-left+1);
+      sum=sum-nums[left];
+      left++;
+    }
+  }
+  
+  return result;
+    }
 
 
 
+   
+
+
+//最大子序列和
+    public static   int maxSubArray(int[] nums) {
+      //int[] dp=new int[nums.length];
+      int left=nums[0];
+      int result=nums[0]; 
+      for(int i=1;i<nums.length;i++){
+      left=Math.max(left+nums[i],nums[i]);
+      result=Math.max(left,result);
+        }
+      return result;
+    }
+   
+   
+//有序平方数组
+public static int[] sortedSquares(int[] nums) {
+   int left=0; int right=nums.length-1;
+   int[] num=new int[nums.length];
+   int i=nums.length-1;
+  while(left<=right){
+    if(nums[left]*nums[left]>=nums[right]*nums[right]){
+      num[i]=nums[left]*nums[left];
+      i--;
+      left++;
+    }else{
+      num[i]=nums[right]*nums[right];
+      i--;
+      right--;
+    }
+  }
+  
+  return num;
+    }
+
+
+   
+   //移除元素
  public static int removeElement(int[] nums, int val) {
        int left =0;
        int right=0;
@@ -64,7 +92,7 @@ int[] nums=new int[]{3,2,2,3,3};
 
 
 
-
+  //二分查找
   public static int search(int[] nums,int targer){
     int left =0;
     int right=nums.length-1;
@@ -78,9 +106,7 @@ int[] nums=new int[]{3,2,2,3,3};
       }
       middle=(left+right)/2;
     }
-    if (nums[middle]!=targer) {
-        return -1;
-    }
+    if (nums[middle]!=targer) return -1;
     return middle;
   }
    }
