@@ -1,4 +1,4 @@
-run_command: java -cp target/classes com.my.practice.hello
+run_command: java -cp target/classes com.my.experiment.demo05.dd
 debug:
   compile: javac -encoding utf-8 -g -cp . hello.java
   launch:
@@ -9,4 +9,4 @@ debug:
     console: integratedTerminal
     internalConsoleOptions: neverOpen
   support: true
-compile_command: javac -d target/classes src/main/java/com/my/practice/hello.java
+compile_command: javac -d target/classes src/main/java/com/my/experiment/demo05/dd.java

@@ -28,8 +28,7 @@ public static int minSubArrayLen(int target, int[] nums) {
       sum=sum-nums[left];
       left++;
     }
-  }
-  
+  } 
   return result;
     }
 
@@ -109,4 +108,8 @@ public static int[] sortedSquares(int[] nums) {
     if (nums[middle]!=targer) return -1;
     return middle;
   }
+
+
+
+  
    }
